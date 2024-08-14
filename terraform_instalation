@@ -38,6 +38,17 @@ terraform plan
  + this indicate create resource
  - this indicate resource deletion
 +/- indicate resource recreation
+terraform apply --auto-approve
+terraform show
+terraform destroy
+terraform destroy
+terraform destroy
+
+##again want just
+terraform plan 
+terraform apply --auto-approve
+
+
 
 
 ####################################################
