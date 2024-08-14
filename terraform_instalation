@@ -95,6 +95,35 @@ docker
 [root@ip-172-31-82-49 doc]# ls .terraform/plugins/registry.terraform.io/terraform-providers/docker/2.7.2/
 linux_amd64
 [root@ip-172-31-82-49 doc]# ls .terraform/plugins/registry.terraform.io/terraform-providers/docker/2.7.2/linux_amd64/
+
+################modifine nginx##################
+main.if
+provider "docker" {
+  host = "unix:///var/run/docker.sock"
+}
+
+# Pulls the image
+resource "docker_image" "myimg" {
+  name = "nginx"
+}
+
+# Create a container
+resource "docker_container" "mycontainer" {
+  image = docker_image.myimg.latest
+  name  = "foo"
+
+ ports {
+   internal = "80"
+   external = "80"
+   }
+}
+##############################################################~  
+terraform validate 
+terraform plan
+terraform apply --auto-approve
+terraform show 
+terraform destroy
+
 terraform-provider-docker_v2.7.2_x4
 
 ###################################################
