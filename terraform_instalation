@@ -26,4 +26,39 @@ sudo systemctl status docker
 ##################################################
 ## every infra need saparete folder#########33
 mkdir terraform
+mkdir doc
+#########################################################
+main.tf
 
+terraform 0.13upgrade .
+terraform init
+main.tf  versions.tf 
+terraform validate
+terraform plan
+ + this indicate create resource
+ - this indicate resource deletion
++/- indicate resource recreation
+
+
+####################################################
+again terraform init not work up to date
+#################init test ###################
+
+[root@ip-172-31-82-49 doc]# ls .terraform/
+plugins
+[root@ip-172-31-82-49 doc]# ls .terraform/plugins/
+registry.terraform.io  selections.json
+[root@ip-172-31-82-49 doc]# ls .terraform/plugins/registry.terraform.io/
+terraform-providers
+[root@ip-172-31-82-49 doc]# .terraform/plugins/registry.terraform.io/terraform-providers/
+bash: .terraform/plugins/registry.terraform.io/terraform-providers/: Is a directory
+[root@ip-172-31-82-49 doc]# ls .terraform/plugins/registry.terraform.io/terraform-providers/
+docker
+[root@ip-172-31-82-49 doc]# ls .terraform/plugins/registry.terraform.io/terraform-providers/docker/
+2.7.2
+[root@ip-172-31-82-49 doc]# ls .terraform/plugins/registry.terraform.io/terraform-providers/docker/2.7.2/
+linux_amd64
+[root@ip-172-31-82-49 doc]# ls .terraform/plugins/registry.terraform.io/terraform-providers/docker/2.7.2/linux_amd64/
+terraform-provider-docker_v2.7.2_x4
+
+###################################################
