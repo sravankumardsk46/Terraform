@@ -1,0 +1,9 @@
+https://releases.hashicorp.com/terraform/0.13.1/terraform_0.13.1_linux_amd64.zip
+
+curl -o https://releases.hashicorp.com/terraform/0.13.1/terraform_0.13.1_linux_amd64.zip
+
+apt install -y unzip
+
+unzip terraform_0.13.1_linux_amd64.zip -d /usr/local/bin
+
+terraform version
