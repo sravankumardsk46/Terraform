@@ -24,3 +24,6 @@ sudo systemctl start docker
 sudo systemctl enable docker
 sudo systemctl status docker
 ##################################################
+## every infra need saparete folder#########33
+mkdir terraform
+
