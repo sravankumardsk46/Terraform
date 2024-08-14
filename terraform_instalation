@@ -17,3 +17,10 @@ sudo yum install -y unzip
 unzip terraform_0.13.1_linux_amd64.zip -d /usr/local/bin
 terraform version
 which terraform
+
+############Docker install in linux ##########
+sudo yum install -y docker
+sudo systemctl start docker
+sudo systemctl enable docker
+sudo systemctl status docker
+##################################################
