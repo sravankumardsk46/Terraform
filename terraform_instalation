@@ -67,7 +67,8 @@ resource "docker_image" "ubuntu" {
   name = "ubuntu:7"
 }
 terraform validate
-terraform plan
+terraform plan       ~ name   = "ubuntu:latest" -> "ubuntu:7"
+
 terraform apply --auto-approve
 
 ~ 
