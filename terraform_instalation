@@ -29,6 +29,15 @@ mkdir terraform
 mkdir doc
 #########################################################
 main.tf
+provider "docker" {
+  host = "unix:///var/run/docker.sock"
+}
+
+# Pulls the image
+resource "docker_image" "ubuntu" {
+  name = "ubuntu:latest"
+}
+~ 
 
 terraform 0.13upgrade .
 terraform init
@@ -47,6 +56,21 @@ terraform destroy
 ##again want just
 terraform plan 
 terraform apply --auto-approve
+##################modifide
+vi main.tf
+provider "docker" {
+  host = "unix:///var/run/docker.sock"
+}
+
+# Pulls the image
+resource "docker_image" "ubuntu" {
+  name = "ubuntu:7"
+}
+terraform validate
+terraform plan
+terraform apply --auto-approve
+
+~ 
 
 
 
