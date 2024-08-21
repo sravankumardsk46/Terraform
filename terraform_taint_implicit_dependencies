@@ -116,6 +116,16 @@ terraform force-unlock <LOCK_ID>
 
 ############ parller exicution #######################
 vi main.tf
+# Define the AWS provider
+provider "aws" {
+  region = "ap-south-1"
+}
+
+# Launch an EC2 instance
+resource "aws_instance" "Example" {
+  ami           = "ami-0522ab6e1ddcc7055" 
+  instance_type = "t2.micro"            
+}
 
 # Create an S3 bucket
 resource "aws_s3_bucket" "example_bucket" {
