@@ -135,6 +135,8 @@ resource "aws_s3_bucket" "example_bucket" {
 terraform apply -auto-approve
 ## ther are two parlore created and destroy boyh can check
 ###############################################################
+##########33 implicit dependencies ############
+
 
 
 
