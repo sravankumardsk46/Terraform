@@ -103,6 +103,17 @@ terraform plan
 terraform show
 terraform destroty
 ##################################################################
+#It looks like there are still some Terraform processes running (terraform destroy) that might be causing the lock issue. To resolve this, you'll need to terminate these processes.
+ps aux | grep terraform
+kill 37125 37129 37167
+kill -9 37125 37129 37167
+rm -f .terraform/terraform.tfstate.lock.info
+terraform destroy
+#### wen d lock tf plan lock 
+terraform plan -lock=false
+## terraform file lock that open lock ip mention
+terraform force-unlock <LOCK_ID>
+
 ############ parller exicution #######################
 vi main.tf
 
