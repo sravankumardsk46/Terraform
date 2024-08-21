@@ -129,8 +129,12 @@ resource "aws_instance" "Example" {
 
 # Create an S3 bucket
 resource "aws_s3_bucket" "example_bucket" {
-  bucket = "wezvatech_adan_demo_s3"
+  bucket = "wezvatech-adan-demo-s3"
 }
+#######################################
+terraform apply -auto-approve
+## ther are two parlore created and destroy boyh can check
+###############################################################
 
 
 
