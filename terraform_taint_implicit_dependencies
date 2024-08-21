@@ -1,1 +1,52 @@
+TAINT:
+##########################################################
+main.if
+provider "docker" {
+  host = "unix:///var/run/docker.sock"
+}
 
+# Pulls the image
+resource "docker_image" "myimg" {
+  name = "nginx"
+}
+
+# Create a container
+resource "docker_container" "mycontainer" {
+  image = docker_image.myimg.latest
+  name  = "foo"
+
+ ports {
+   internal = "80"
+   external = "80"
+   }
+}
+#################################################################
+terraform validate
+terraform plan
+terraform apply --auto-approve
+##its created two resource but i need re create same nginx to httpd 
+###################################################################
+main.if
+provider "docker" {
+  host = "unix:///var/run/docker.sock"
+}
+
+# Pulls the image
+resource "docker_image" "myimg" {
+  name = "httpd"
+}
+
+# Create a container
+resource "docker_container" "mycontainer" {
+  image = docker_image.myimg.latest
+  name  = "foo"
+
+ ports {
+   internal = "80"
+   external = "80"
+   }
+}
+#####################################################################################
+terraform plan
+### it shows nginx > httpd
+@#@# go to tacke aws pub ip copy to past on google it show u {nginx} web server
