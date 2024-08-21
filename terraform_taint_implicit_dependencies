@@ -161,7 +161,26 @@ terraform apply -auto-approve
 ## this is created dependeny frist create intence affter that elastic ip 
 terraform destroy
 ##########################################################################
+########## Explicit Dependency ######################### depends_on = [aws_instance.Example]
+vi main.tf
+# Define the AWS provider
+provider "aws" {
+  region = "ap-south-1"
+}
 
+# Launch an EC2 instance
+resource "aws_instance" "Example" {
+  ami           = "ami-0522ab6e1ddcc7055" 
+  instance_type = "t2.micro"            
+}
+
+# Create an S3 bucket
+resource "aws_s3_bucket" "example_bucket" {
+  bucket = "wezvatech-adan-demo-s3"
+  depends_on = [aws_instance.Example]  
+}
+#####################################################
+# in there tell frist create instence then only create s3 bucket mean
 
 
 
