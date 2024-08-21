@@ -136,6 +136,27 @@ terraform apply -auto-approve
 ## ther are two parlore created and destroy boyh can check
 ###############################################################
 ##########33 implicit dependencies ############
+vi main.tf
+# Define the AWS provider
+provider "aws" {
+  region = "ap-south-1"
+}
+
+# Launch an EC2 instance
+resource "aws_instance" "Example" {
+  ami           = "ami-0522ab6e1ddcc7055" 
+  instance_type = "t2.micro"            
+}
+
+# Create an S3 bucket
+resource "aws_s3_bucket" "example_bucket" {
+  bucket = "wezvatech-adan-demo-s3"
+}
+# Allocate an Elastic IP
+resource "aws_eip" "example" {
+  instance = aws_instance.example.id 
+}
+###################################33
 
 
 
