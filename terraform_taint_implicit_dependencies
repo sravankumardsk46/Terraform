@@ -39,7 +39,7 @@ resource "docker_image" "myimg" {
 # Create a container
 resource "docker_container" "mycontainer" {  
   image = docker_image.myimg.latest
-  name  = "foo"
+  name  = "testng"
 
  ports {
    internal = "80"
