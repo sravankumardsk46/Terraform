@@ -14,7 +14,7 @@ terraform version
 
 curl -o terraform_0.13.1_linux_amd64.zip https://releases.hashicorp.com/terraform/0.13.1/terraform_0.13.1_linux_amd64.zip
 sudo yum install -y unzip
-unzip terraform_0.13.1_linux_amd64.zip -d /usr/local/bin
+sudo unzip terraform_0.13.1_linux_amd64.zip -d /usr/local/bin
 terraform version
 which terraform
 
