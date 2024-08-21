@@ -37,7 +37,7 @@ resource "docker_image" "myimg" {
 }
 
 # Create a container
-resource "docker_container" "mycontainer" {
+resource "docker_container" "mycontainer" {  
   image = docker_image.myimg.latest
   name  = "foo"
 
@@ -48,5 +48,15 @@ resource "docker_container" "mycontainer" {
 }
 #####################################################################################
 terraform plan
+
 ### it shows nginx > httpd
 @#@# go to tacke aws pub ip copy to past on google it show u {nginx} web server
+TERRAFORM taint <PROVIDER_RESOURCE.RESOURCE NAME>
+# i taken here to copy taint details
+
+terraform taint docker_container.mycontainer
+
+terraform plan
+terraform apply -auto-approve
+
+## here old container destroy to ceate ne container becose of taint markeed in {plan}
