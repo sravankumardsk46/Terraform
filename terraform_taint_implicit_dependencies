@@ -70,6 +70,8 @@ terraform destroy
 # goto IAM sectio to careate acces and secter key to craete 
 # then go to terraform 
 vi ~/. bashrc
+source ~/.bashrc   # relode
+
 
 export AWS_ACCESS_KEY_ID= AKIAQKGGXNR2B
 export AWS_SECRET_ACCESS_KEY= kpqLF94w4boJTj5Nn5Fl25GB0F5Lz
