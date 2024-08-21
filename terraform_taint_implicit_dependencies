@@ -108,7 +108,7 @@ vi main.tf
 
 # Create an S3 bucket
 resource "aws_s3_bucket" "example_bucket" {
-  bucket = "my-unique-bucket-name"
+  bucket = "wezvatech_adan_demo_s3"
 }
 
 
