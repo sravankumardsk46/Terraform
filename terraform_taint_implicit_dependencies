@@ -181,6 +181,11 @@ resource "aws_s3_bucket" "example_bucket" {
 }
 #####################################################
 # in there tell frist create instence then only create s3 bucket mean
+terraform apply -auto-approve
+frist create instence
+second create s3 bucket
+terraform destry
+##########################################################################
 
 
 
