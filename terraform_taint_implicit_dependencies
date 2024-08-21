@@ -55,6 +55,10 @@ TERRAFORM taint <PROVIDER_RESOURCE.RESOURCE NAME>
 # i taken here to copy taint details
 
 terraform taint docker_container.mycontainer
+####################################################
+[root@ip-172-31-1-162 doc]# terraform taint docker_container.mycontainer
+Resource instance docker_container.mycontainer has been marked as tainted.
+#####################################################
 
 terraform plan
 terraform apply -auto-approve
