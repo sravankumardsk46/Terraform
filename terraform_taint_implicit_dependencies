@@ -95,6 +95,23 @@ resource "aws_instance" "Example" {
   instance_type = "t2.micro"            
 }
 
+terraform init
+terraform validate
+terraform plan
+terraform apply -auto-approve
+terraform plan
+terraform show
+terraform destroty
+##################################################################
+############ parller exicution #######################
+vi main.tf
+
+# Create an S3 bucket
+resource "aws_s3_bucket" "example_bucket" {
+  bucket = "my-unique-bucket-name"
+}
+
+
 
 
 
