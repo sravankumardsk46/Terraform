@@ -71,9 +71,13 @@ terraform destroy
 # then go to terraform 
 vi ~/. bashrc
 
-export AWS_ACCESS_KEY_ID= (your_access_key_id)
-export AWS_SECRET_ACCESS_KEY=(your_secret_access_key)
+export AWS_ACCESS_KEY_ID= AKIAQKGGXNR2B
+export AWS_SECRET_ACCESS_KEY= kpqLF94w4boJTj5Nn5Fl25GB0F5Lz
 #########################################################################
+cd terraform 
+mkdir aws
+cd aws
+vi main.tf
 
 
 
