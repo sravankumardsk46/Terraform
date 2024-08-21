@@ -156,7 +156,11 @@ resource "aws_s3_bucket" "example_bucket" {
 resource "aws_eip" "example" {
   instance = aws_instance.example.id 
 }
-###################################33
+###################################
+terraform apply -auto-approve
+## this is created dependeny frist create intence affter that elastic ip 
+terraform destroy
+##########################################################################
 
 
 
