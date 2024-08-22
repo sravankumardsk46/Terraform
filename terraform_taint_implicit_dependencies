@@ -252,6 +252,14 @@ resource "docker_container" "mycontainer" {
 }
 ##############################################################################
 
+terraform plan and apply destrot
+terraform plan -var "image_name=httpd:latest" -var "container_name=newcontainer"
+vi file.tfvars
+container_name= "NEW"
+terraform plan -var-file="file.tfvars"
+
+______________________________________________________________________________________
+
 
 
 
