@@ -237,7 +237,7 @@ resource "docker_image" "myimg" {
 # Create a container
 resource "docker_container" "mycontainer" {
   image = var.container_name
-  name  = docker_image.myimage.latest
+  name  = docker_image.myimg.latest
 
  ports {
    internal = "80"
