@@ -21,6 +21,12 @@ resource "docker_container" "mycontainer" {
    }
 }
 #################################################################
+terraform plan
+ terraform plan -var "image_name=httpd:latest' -var "container_name=newcontainer"
+vi file.tfvares
+container_name= "NWE"
+TERRAFORM plan -var-file=file.tfvars
+#################################################################
 terraform validate
 terraform plan
 terraform apply --auto-approve
