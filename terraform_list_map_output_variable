@@ -179,6 +179,7 @@ default = "noname"
 ###############################################
 terraform validate , plan
 terraform plan 
+############terraform output  user define variable ############
 
 
 
