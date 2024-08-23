@@ -142,6 +142,43 @@ variable "image_name" {
 variable "container_name" {
 default = "noname"
 }
+#################################################################
+vi main.tf
+provider "docker" {
+  host = "unix:///var/run/docker.sock"
+}
+
+# Pulls the image
+resource "docker_image" "myimg" {
+  name = var.image_name["test"]
+}
+
+# Create a container
+resource "docker_container" "mycontainer" {
+  name = var.container_name
+  image  = docker_image.myimg.latest
+
+ ports {
+   internal = "80"
+   external = "80"
+   }
+}
+#######################################
+vi variable.tf
+variable "image_name" {
+  type    = map
+  default = {
+  "test" = "httpd:latest"
+  "prod" = "nginx:latest"
+}
+}
+
+variable "container_name" {
+default = "noname"
+}
+###############################################
+terraform validate , plan
+terraform plan 
 
 
 
