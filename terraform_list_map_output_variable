@@ -60,3 +60,33 @@ default = "noname"
 ########################################################
 terraform validate ,plan
 ############### LIST #################################
+vi variable.tf
+variable "image_name" {
+type = list
+default = ["nginx:latest","httpd:latest"]
+}
+
+variable "container_name" {
+default = "noname"
+}
+####################################################
+vi main.tf
+provider "docker" {
+  host = "unix:///var/run/docker.sock"
+}
+
+# Pulls the image
+resource "docker_image" "myimg" {
+  name = var.image_name[0]
+}
+
+# Create a container
+resource "docker_container" "mycontainer" {
+  name = var.container_name
+  image  = docker_image.myimg.latest
+
+ ports {
+   internal = "80"
+   external = "80"
+   }
+}
