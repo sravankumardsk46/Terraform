@@ -128,5 +128,21 @@ resource "docker_container" "mycontainer" {
 ##############################
 
 terraform plan -var "index"=1
+terraform plan -var "index"=0
+###############################################################
+#################### MAP ######################################
+vi variable.tf
+variable "image_name" {
+  type = map
+  default = {
+  "test" ="httpd:latest" 
+  "prod" ="nginx:latest"
+}
+
+variable "container_name" {
+default = "noname"
+}
+
+
 
 
