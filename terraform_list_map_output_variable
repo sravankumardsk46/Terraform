@@ -181,6 +181,16 @@ terraform validate , plan
 test  ,  prod
 terraform plan 
 ############terraform output  user define variable ############
+vi main.tf  vi variable.tf  # take any default from docker
+vi output.tf
+output "container_name" {
+  value = docker_container.example.name
+}
+
+output "container_ip" {
+  value = docker_container.example.ip_address
+}
+############################################################
 
 
 
