@@ -178,6 +178,7 @@ default = "noname"
 }
 ###############################################
 terraform validate , plan
+test  ,  prod
 terraform plan 
 ############terraform output  user define variable ############
 
