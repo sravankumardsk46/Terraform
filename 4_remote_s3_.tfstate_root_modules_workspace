@@ -167,10 +167,20 @@ cd modulex
 vi main.tf
 module "image" {
   source = "./modules/image"
+# image_name = "httpd:latest"  ##if nat give this it take from chailed module ###
+  image_name = var.rootimage_name  
 }
-#########################
+######################### root module calling chailed module
 terraform init.validate,plan,apply     ### it go to module section picup image ##
-
+terraform plan ## image_name = "httpd:latest"
+##########################
+vi variable.tf
+variable "rootimage_name" {
+   default = "httpd:latest"
+}
+###########################
+terraform plan
+terraform plan -var "rootimage_name=jenkins" ## replace variable name ##
 
 
 
