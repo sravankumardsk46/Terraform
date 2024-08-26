@@ -121,13 +121,16 @@ touch main.tf  variable.tf
 mkdir moduls
 cd moduls
 mkdir image container
+############################################################
 cd image
-##########################
 vi main.tf
 # Pulls the image
 resource "docker_image" "myimg" {
-  name = "nginx"
+  name = var.image_name
 }
+############################
+vi variables.tf
+
 
 
 
