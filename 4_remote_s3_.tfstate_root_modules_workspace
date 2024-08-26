@@ -161,8 +161,15 @@ default = "noname"
 }
 #######################
 terraform init ,valiadate,plan,apply,destroy
-
+rm terraform.tfstate file
 #########################
+cd modulex
+vi main.tf
+module "image" {
+  source = "./modules/image"
+}
+#########################
+terraform init.validate,plan,apply     ### it go to module section picup image ##
 
 
 
