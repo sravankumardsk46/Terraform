@@ -110,6 +110,8 @@ terraform workspace select test
 terraform plan   to new create becouse its not have ,tf sate file 
 ls terraform.tfstate.d/test/
 terraform.tfstate
+terraform workspace delete test
+Deleted workspace "test"!
 ####################################################
 
 
