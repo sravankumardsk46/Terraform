@@ -153,6 +153,12 @@ resource "docker_container" "mycontainer" {
    external = "80"
    }
 }
+#########################
+vi variable.tf
+variable "container_name" {
+default = "noname"
+}
+
 
 
 
