@@ -108,6 +108,8 @@ terraform plan    it up date
 terraform workspace select test
 * test
 terraform plan   to new create becouse its not have ,tf sate file 
+ls terraform.tfstate.d/test/
+terraform.tfstate
 ####################################################
 
 
