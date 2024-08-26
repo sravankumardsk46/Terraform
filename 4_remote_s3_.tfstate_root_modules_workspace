@@ -113,6 +113,18 @@ terraform.tfstate
 terraform workspace delete test
 Deleted workspace "test"!
 ####################################################
+#######################  MODULES  #########################################################
+cd terraform
+mkdir modulesx
+cd modulesx
+touch main.tf  variable.tf
+mkdir moduls
+cd moduls
+mkdir image container
+cd image
+vi main.tf
+
+
 
 
 
