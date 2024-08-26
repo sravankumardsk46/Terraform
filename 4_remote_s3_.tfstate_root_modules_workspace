@@ -39,8 +39,13 @@ terraform applt -auto-approve
 # NOW CREATE backend
 mkdir backend
 cd backend
+##
+cp ../aws/main.tf_orig           #####  THIS ONE FOLDER TO ONETHER FOLDER COPY ##########
+mv main.tf_orih main.tf
+###
 vi manin.tf    vi backend.tf
 vi main.tf
+
 
 
 
