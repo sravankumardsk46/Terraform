@@ -195,7 +195,8 @@ terraform plan ,apply,  # show you ip address
 terraform destroy
 ##########################################################
 ############### DATA SOURCE ###############################
-
+cp main.tf main.tf_orign
+vi main.tf
 provider "aws" {
   region = "ap-south-1"
 }
@@ -205,8 +206,14 @@ data "aws_availability_zones" "example" {
 }
 
 output "availability_zones" {
-  value = data.aws_availability_zones.example.names
+  value = data.aws_availability_zones.example.names    ### [0]   can mention 1a 1b 1c like
 }
+#########################################
+terraform plan    ## it not careateing but it show u available zone  0    0    0   show
+#####
+terraform apply -auto -approve ### it not create enything just show u {available zones }
+####################################################################################
+
 
 
 
