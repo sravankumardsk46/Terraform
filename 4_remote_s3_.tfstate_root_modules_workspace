@@ -135,6 +135,10 @@ default = "nginx:latest"
 }
 ###########################
 vi output.tf
+output "image_name" {
+  value =docker_image.myimg.latest
+}
+##############################
 
 
 
