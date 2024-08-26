@@ -144,6 +144,16 @@ terraform init,validate,plan,apply,destroy    ### OK ##
 cd container
 vi main.tf
 
+# Create a container
+resource "docker_container" "mycontainer" {
+  name = var.container_name
+  image  = "nginx:latest"
+ ports {
+   internal = "80"
+   external = "80"
+   }
+}
+
 
 
 
