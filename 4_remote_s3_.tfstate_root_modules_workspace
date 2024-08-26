@@ -20,3 +20,27 @@ rm terraform.tfstate
 terraform plan   ### IT SHOW U READY TO INSTALL intance but it will ERROR tag or name given
 terraform destroy   ### IT WILL ERROR  BECOUSE tage or name given
 terraform apply   # if nat give tag or name it created new instance ##################
+#######################################################################################################
+######################## STATE FILE REMOTELY STRORE IN S3 #######################################
+cd terrafor/aws 
+vi main.tf 
+# Define the AWS provider
+provider "aws" {
+  region = "ap-south-1"
+}
+# Create an S3 bucket
+resource "aws_s3_bucket" "example_bucket" {
+  bucket = "wezvatech-adan-demo-s3"
+  depends_on = [aws_instance.Example]
+}
+#######################################################################
+terraform applt -auto-approve
+############################################################
+# NOW CREATE backend
+mkdir backend
+cd backend
+vi manin.tf    vi backend.tf
+vi main.tf
+
+
+
