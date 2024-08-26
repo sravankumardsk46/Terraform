@@ -149,6 +149,7 @@ vi main.tf
 resource "docker_container" "mycontainer" {
   name = var.container_name
   image  = "nginx:latest"
+ #image = var.image_name
  ports {
    internal = "80"
    external = "80"
@@ -159,6 +160,8 @@ vi variable.tf
 variable "container_name" {
 default = "noname"
 }
+#variable "image_name" {
+#}
 #######################
 terraform init ,valiadate,plan,apply,destroy
 rm terraform.tfstate file
@@ -170,6 +173,11 @@ module "image" {
 # image_name = "httpd:latest"  ##if nat give this it take from chailed module ###
   image_name = var.rootimage_name  
 }
+module "container" {
+   source   = "./modules/container"
+   image    = module.image.image_out  # module.modilename.outputvariablename
+   conatainer_name = var.rootcontainer_name
+}
 ######################### root module calling chailed module
 terraform init.validate,plan,apply     ### it go to module section picup image ##
 terraform plan ## image_name = "httpd:latest"
@@ -177,6 +185,9 @@ terraform plan ## image_name = "httpd:latest"
 vi variable.tf
 variable "rootimage_name" {
    default = "httpd:latest"
+}
+#variable "rootcontainer_name" {
+   default = "wezvatech"
 }
 ###########################
 terraform plan
