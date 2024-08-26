@@ -87,8 +87,28 @@ cd ../awss/
 terraform destroy   #### it is also going to delete becuse of awss have [localy] .tfstate file
 ################################################################################################
 ####################     WORKSPACE    #########################################################
+cd /terraform/doc
  terraform workspace list
-* default            ###  check any folder it available   ###########
+* default            ###  check any folder it available   ###########\
+# to create new workspace
+terraform workspace new test    ### Created and switched to workspace "test"! ###
+##### terraform.tfstate.d     < it created blue colore >
+ls terraform.tfstate.d
+test
+terraform workspace list
+  default
+* test
+terraform workspace show
+test
+##############################
+terraform workspace select default     #### Switched to workspace "default"  ##
+terraform validate ,plan ,apply   it careated own state file from terraform.tfstate.d  here ######
+terraform plan    it up date 
+###############################
+terraform workspace select test
+* test
+terraform plan   to new create becouse its not have ,tf sate file 
+####################################################
 
 
 
