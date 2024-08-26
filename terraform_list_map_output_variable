@@ -191,6 +191,23 @@ output "container_ip" {
   value = docker_container.example.ip_address
 }
 ############################################################
+terraform plan ,apply,  # show you ip address
+terraform destroy
+##########################################################
+############### DATA SOURCE ###############################
+
+provider "aws" {
+  region = "ap-south-1"
+}
+
+data "aws_availability_zones" "example" {
+  state = "available"
+}
+
+output "availability_zones" {
+  value = data.aws_availability_zones.example.names
+}
+
 
 
 
