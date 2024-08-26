@@ -130,6 +130,11 @@ resource "docker_image" "myimg" {
 }
 ############################
 vi variables.tf
+variable "image_name" {
+default = "nginx:latest"
+}
+###########################
+vi output.tf
 
 
 
