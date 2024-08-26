@@ -86,6 +86,11 @@ cd ../awss/
 ################################################################################################
 terraform destroy   #### it is also going to delete becuse of awss have [localy] .tfstate file
 ################################################################################################
+####################     WORKSPACE    #########################################################
+ terraform workspace list
+* default            ###  check any folder it available   ###########
+
+
 
 
 
