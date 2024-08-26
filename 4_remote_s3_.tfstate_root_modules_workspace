@@ -40,11 +40,12 @@ terraform applt -auto-approve
 mkdir backend
 cd backend
 ##
-cp ../aws/main.tf_orig           #####  THIS ONE FOLDER TO ONETHER FOLDER COPY ##########
+cp ../aws/main.tf_orig  .   DORT IMP         #####  THIS ONE FOLDER TO ONETHER FOLDER COPY ##########
 mv main.tf_orih main.tf
 ###
 vi manin.tf    vi backend.tf
 vi main.tf
+
 
 
 
