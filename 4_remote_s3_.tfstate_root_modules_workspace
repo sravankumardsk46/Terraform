@@ -66,6 +66,28 @@ terraform {
   }
 }
 ###################################################
+terraform validate, plan.apply,
+## .tfstae file create in s3 bucket
+mkdir test
+cd test
+#########
+cp ../backend/*.tf .
+############
+ls ### its available##########
+test
+vi main.tf   backend.tf
+#############################
+terraform init
+terraform plan     #### it up to date  #### show u####
+######################################################################
+1.manual delete go to s3 and delete 
+2. then go to cd /awss 
+cd ../awss/
+################################################################################################
+terraform destroy   #### it is also going to delete becuse of awss have [localy] .tfstate file
+################################################################################################
+
+
 
 
 
