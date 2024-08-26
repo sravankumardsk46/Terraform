@@ -139,6 +139,11 @@ output "image_name" {
   value =docker_image.myimg.latest
 }
 ##############################
+terraform init,validate,plan,apply,destroy    ### OK ##
+############################
+cd container
+vi main.tf
+
 
 
 
