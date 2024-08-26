@@ -139,7 +139,7 @@ output "image_name" {
   value =docker_image.myimg.latest
 }
 ##############################
-terraform init,validate,plan,apply,destroy    ### OK ##
+terraform init,validate,plan,apply,   ### OK ##
 ############################
 cd container
 vi main.tf
@@ -158,6 +158,12 @@ vi variable.tf
 variable "container_name" {
 default = "noname"
 }
+#######################
+terraform init ,valiadate,plan,apply,destroy
+cd image destroy
+rm .tf statefile
+#########################
+
 
 
 
