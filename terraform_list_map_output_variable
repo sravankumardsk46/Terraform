@@ -232,6 +232,12 @@ data "aws_instances" "test" {
 
   instance_state_names = ["running", "stopped"]
 }
+output "ec2list" {
+  value = data.aws_instances.test.ids      ###[0] or [1] or [2]
+##################################################
+terraform plan apply #nothing to create show u running and stopped intances
+####################################################################################################
+
 
 
 
