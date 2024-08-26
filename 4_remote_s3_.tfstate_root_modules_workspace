@@ -1,1 +1,22 @@
+cd terraform/doc
+main.tf  output.tf  terraform.tfstate  terraform.tfstate.backup  variable.tf  versions.tf
+#### if u remove terraform.tfstate  file terraform nothing to do ### just createing
+vi main.tf
+# Define the AWS provider
+provider "aws" {
+  region = "ap-south-1"
+}
 
+# Launch an EC2 instance
+resource "aws_instance" "Example" {
+  ami           = "ami-0522ab6e1ddcc7055"
+  instance_type = "t2.micro"
+}
+###########################################
+terraform validate,plan , apply 
+### it create new intance 
+terraform plan   ##### update ####
+rm terraform.tfstate 
+terraform plan   ### IT SHOW U READY TO INSTALL intance but it will ERROR tag or name given
+terraform destroy   ### IT WILL ERROR  BECOUSE tage or name given
+terraform apply   # if nat give tag or name it created new instance ##################
