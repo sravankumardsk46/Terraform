@@ -1,6 +1,6 @@
 cd terraform/doc
 main.tf  output.tf  terraform.tfstate  terraform.tfstate.backup  variable.tf  versions.tf
-#### if u remove terraform.tfstate  file terraform nothing to do ### just createing
+#### if u remove terraform.tfstate  file terraform nothing to do ### just createing #
 vi main.tf
 # Define the AWS provider
 provider "aws" {
