@@ -119,7 +119,7 @@ mkdir modulesx
 cd modulesx
 touch main.tf  variable.tf
 mkdir moduls
-cd moduls
+cd modules
 mkdir image container
 ############################################################
 cd image
