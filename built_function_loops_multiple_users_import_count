@@ -68,6 +68,10 @@ provider "aws" {
 resource "aws_iam_user" "example" {
   name = "sravan"
 }
+####################################################################
+terraform plan ,apply,destroy.
+##########################################
+
 
 
 
