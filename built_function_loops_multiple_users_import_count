@@ -70,7 +70,43 @@ resource "aws_iam_user" "example" {
 }
 ####################################################################
 terraform plan ,apply,destroy.
-##########################################
+########################################## error ######
+cd loops
+vi main.tf
+provider "aws" {
+  region = "ap-south-1"
+}
+
+resource "aws_iam_user" "example" {
+  count = 5
+  name = "anu"
+}
+####################################################
+# but here i add like this it getting  ERROR ERROR frist one is created @#@#@
+# this is over write anu
+                            #########  just practice colome not use #######
+variable "user_names" {
+  description = "create i am usere with this names "
+  defaulte = ["sonu","raju","kumar","sravan","hari"]
+__________________________-
+####################################################### ok  ###
+# correct way 
+cd loops
+vi main.tf
+variable "user_names" {
+  description = "create i am usere with this names "
+  defaulte = ["sonu","raju","kumar","sravan","hari"]
+
+provider "aws" {
+  region = "ap-south-1"
+}
+
+resource "aws_iam_user" "example" {
+  count = leanth (var.user_names)
+  name = var.user_names [count.index]
+}
+##################################################### ok ####
+
 
 
 
