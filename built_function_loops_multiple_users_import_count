@@ -252,8 +252,69 @@ if (1) susses condition
 if (0) faile condition
  count = var.enable_usercreation ? 1:2
 if (1) susses condition
-if (0) faile condition
+if (0) faile condition 
 #######################################################
+###############  IMPORT   ##############################################################
+cd terraform
+mkdir import
+cd import
+vi main.tf
+
+provider "aws" {
+  region = "ap-south-1"  
+}
+
+# Define an EC2 Instance
+resource "aws_instance" "example" {
+  ami           = "ami-0522ab6e1ddcc7055"  
+  instance_type = "t2.micro" 
+  count = 1
+}
+################################################
+# here dose terraform know only one machine but it created two
+aws_instance.example[0]  ## but thre two instence craeted
+
+cd import
+vi main.tf
+
+provider "aws" {
+  region = "ap-south-1"  
+}
+
+# Define an EC2 Instance
+resource "aws_instance" "example" {
+  ami           = "ami-0522ab6e1ddcc7055"  
+  instance_type = "t2.micro" 
+  count = 2
+}
+################################################
+terraform plan   # two created instence tacke one id extra created( copy and past) in import command
+ terraform import  aws_instance.example[1] instence-id 
+terraform show
+ aws_instance.example[0]
+ aws_instance.example[1]
+tearraform plan
+ aws_instance.example[1]: Refreshing state... 
+ aws_instance.example[0]: Refreshing state...
+terrform destroy
+# delete which one instance
+terrform destroy -target aws_instance.example[0]
+terrform destroy -target aws_instance.example[1]
+count =1 # hey terraform mentaine one resource ##but index [0] show u
+count =2 # hey terraform mentaine two resource ##but index [1] show u
+--------------------------------------------------------------------------------------------------------
+## this is only import out put only no use see only
+[root@ip-172-31-1-162 import]# terraform import  aws_instance.example[1] <intence-id>
+aws_instance.example[1]: Importing from ID 
+aws_instance.example[1]: Import prepared!
+  Prepared aws_instance for import
+aws_instance.example[1]: Refreshing state... [
+
+Import successful!
+
+The resources that were imported are shown above. These resources are now in
+your Terraform state and will henceforth be managed by Terraform.
+--------------------------------------------------------------------------------------------------------
 
 
 
