@@ -136,6 +136,11 @@ output "useruniqueid" {
 }
 ###################################################################
 terraform plan apply it show u out put of [0] id   destroy
+# aws_iam_user.example["0"]
+# aws_iam_user.example["1"]
+# aws_iam_user.example["2"]
+# aws_iam_user.example["3"]
+# aws_iam_user.example["4"]
 ##################################################################
 ##############  for each ###################  loops #############
 cd loops
@@ -157,8 +162,14 @@ resource "aws_iam_user" "example" {
   name  = each.value
 }
 
-##########################################################################
-
+#########################################################################
+terraform validate plan apply destrot     
+# aws_iam_user.example["anu"]
+# aws_iam_user.example["kumar"]
+# aws_iam_user.example["one"]
+# aws_iam_user.example["sravan"]
+# aws_iam_user.example["sravan"]
+###########################################################################
 
 
 
