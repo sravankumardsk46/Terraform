@@ -228,6 +228,33 @@ resource "aws_iam_user" "example2" {
 terraform plan    ### No changes. Infrastructure is up-to-date. ####
 if you want parctice can exicute above all last is ok 
 ###########################################################
+------------------ conditions------------------------------------
+##################            ####################################
+# condition ? retunes succes : retunes faile
+cd loops
+vi main.tf
+provider "aws" {
+  region = "ap-south-1"
+}
+variable "enable_usercreation" {
+ description = "Enable or disable user creation"
+}
+resource "aws_iam_user" "example" {
+  count = var.enable_usercreation ? 1:0
+  name  = "sravan"
+}
+##################################################
+ terraform plan -var "enable_usercreation=0"
+ #No changes. Infrastructure is up-to-date.
+ terraform plan -var "enable_usercreation=1"
+# one created
+if (1) susses condition
+if (0) faile condition
+ count = var.enable_usercreation ? 1:2
+if (1) susses condition
+if (0) faile condition
+#######################################################
+
 
 
 
