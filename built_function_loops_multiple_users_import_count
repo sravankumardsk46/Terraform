@@ -131,7 +131,7 @@ resource "aws_iam_user" "example" {
   count = length(var.user_names)
   name  = var.user_names[count.index]
 }
-output "useruniqueid" {
+output "user_uniqueid" {
   value = aws_iam_user.example[0].unique_id
 }
 ###################################################################
@@ -161,13 +161,15 @@ resource "aws_iam_user" "example" {
   for_each = toset(var.user_names)
   name  = each.value
 }
-
+output "user_uniqueid" {
+  value = aws_iam_user.example["one"].unique_id
+}
 #########################################################################
 terraform validate plan apply destrot     
 # aws_iam_user.example["anu"]
 # aws_iam_user.example["kumar"]
 # aws_iam_user.example["one"]
-# aws_iam_user.example["sravan"]
+# aws_iam_user.example["two"]
 # aws_iam_user.example["sravan"]
 ###########################################################################
 
