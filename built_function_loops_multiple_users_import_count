@@ -47,6 +47,12 @@ index (["a","b","c"], "b")
 length ("sravan")
 lookup ({a="1",b="2"},"a","defaulte")
 ####################################################################################################
+go to iam to create user and give police administator acces and acces and secret key craete
+vi ~/.bashrc
+export AWS_ACCESS_KEY_ID=AKIAgvhggdcgg
+export AWS_SECRET_ACCESS_KEY=Fyffguyguy
+export AWS_DEFAULT_REGION=ap-south-1
+:wq!
 ##################################  LOOPS   ########################################################
 ## it is nothing but reapetateve same task again and again concept caled loops
 cd terrform /
