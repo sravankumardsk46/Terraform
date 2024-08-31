@@ -48,6 +48,19 @@ length ("sravan")
 lookup ({a="1",b="2"},"a","defaulte")
 ####################################################################################################
 ##################################  LOOPS   ########################################################
+## it is nothing but reapetateve same task again and again concept caled loops
+cd terrform /
+mkdir loops
+cd loops
+vi main.tf
+provider "aws" {
+  region = "ap-south-1"
+}
+
+resource "aws_iam_user" "example" {
+  name = "sravan"
+}
+
 
 
 
