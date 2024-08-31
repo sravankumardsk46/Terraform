@@ -271,6 +271,11 @@ resource "aws_instance" "example" {
   count = 1
 }
 ################################################
+terraform init,validate,plan,apply
+----------------------------------------------------------------------
+go to lanch instance manuval   this  is does not know about this ### EC2 INSTANCE ###
+--------------------------------------------------------------------
+################################################
 # here dose terraform know only one machine but it created two
 aws_instance.example[0]  ## but thre two instence craeted
 
