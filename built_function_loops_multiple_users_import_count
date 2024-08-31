@@ -172,6 +172,66 @@ terraform validate plan apply destrot
 # aws_iam_user.example["two"]
 # aws_iam_user.example["sravan"]
 ###########################################################################
+###################   CONDITIONS  #######################################
+cd loops
+vi main.tf
+provider "aws" {
+  region = "ap-south-1"
+}
+
+resource "aws_iam_user" "example" {
+ name  = "sravan"
+}
+################################################
+cd loops
+vi main.tf
+provider "aws" {
+  region = "ap-south-1"
+}
+
+resource "aws_iam_user" "example" {
+ name  = "sravan"
+}
+resource "aws_iam_user" "example2" {
+ name  = "anu"
+}
+#################################################
+cd loops
+vi main.tf
+provider "aws" {
+  region = "ap-south-1"
+}
+
+resource "aws_iam_user" "example" {
+ name  = "sravan"
+ count = 0
+}
+resource "aws_iam_user" "example2" {
+ name  = "anu"
+}
+#################################################
+cd loops
+vi main.tf
+provider "aws" {
+  region = "ap-south-1"
+}
+
+resource "aws_iam_user" "example" {
+ name  = "sravan"
+ count = 0
+}
+resource "aws_iam_user" "example2" {
+ name  = "anu"
+ count = 0
+}
+##################################################
+terraform plan    ### UPTO DATE YOU ####
+if you want parctice can exicute above all last is ok 
+###########################################################
+
+
+
+
 
 
 
