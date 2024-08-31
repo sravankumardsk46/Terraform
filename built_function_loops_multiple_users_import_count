@@ -53,6 +53,8 @@ export AWS_ACCESS_KEY_ID=AKIAgvhggdcgg
 export AWS_SECRET_ACCESS_KEY=Fyffguyguy
 export AWS_DEFAULT_REGION=ap-south-1
 :wq!
+source ~/.bashrc     ###   you need to reload it to apply the changes  (old) access seccret to (new) accaes seccret key
+chenge
 ##################################  LOOPS   ########################################################
 ## it is nothing but reapetateve same task again and again concept caled loops
 cd terrform /
