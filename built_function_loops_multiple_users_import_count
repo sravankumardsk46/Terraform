@@ -225,7 +225,7 @@ resource "aws_iam_user" "example2" {
  count = 0
 }
 ##################################################
-terraform plan    ### UPTO DATE YOU ####
+terraform plan    ### No changes. Infrastructure is up-to-date. ####
 if you want parctice can exicute above all last is ok 
 ###########################################################
 
