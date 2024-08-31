@@ -93,20 +93,71 @@ __________________________-
 # correct way 
 cd loops
 vi main.tf
+# Define a variable with a list of user names
 variable "user_names" {
-  description = "create i am usere with this names "
-  defaulte = ["sonu","raju","kumar","sravan","hari"]
+  description = "List of IAM user names to create"
+  default     = ["sonu", "raju", "kumar", "sravan", "hari"]
+}
+
+# AWS provider configuration
+provider "aws" {
+  region = "ap-south-1"
+}
+
+# Create IAM users based on the list of names
+resource "aws_iam_user" "example" {
+  count = length(var.user_names)
+  name  = var.user_names[count.index]
+}
+
+##################################################### ok ####
+terraform valiadate ,plan ,apply, destroy brfote destroy aws_iam_user.example[0].unique_id ## copy this ##
+#############################################################
+cd loops
+vi main.tf
+# Define a variable with a list of user names
+variable "user_names" {
+  description = "List of IAM user names to create"
+  default     = ["sonu", "raju", "kumar", "sravan", "hari"]
+}
+
+# AWS provider configuration
+provider "aws" {
+  region = "ap-south-1"
+}
+
+# Create IAM users based on the list of names
+resource "aws_iam_user" "example" {
+  count = length(var.user_names)
+  name  = var.user_names[count.index]
+}
+output "useruniqueid" {
+  value = aws_iam_user.example[0].unique_id
+}
+###################################################################
+terraform plan apply it show u out put of [0] id   destroy
+##################################################################
+##############  for each ###################  loops #############
+cd loops
+vi main.tf
+
+variable "user_names" {
+  description = "List of IAM user names to create"
+  default     = ["sonu", "raju", "kumar", "sravan", "hari"]
+}
+
 
 provider "aws" {
   region = "ap-south-1"
 }
 
-resource "aws_iam_user" "example" {
-  count = leanth (var.user_names)
-  name = var.user_names [count.index]
-}
-##################################################### ok ####
 
+resource "aws_iam_user" "example" {
+  for_each = length(var.user_names)
+  name  = each.value
+}
+
+##########################################################################
 
 
 
