@@ -1,1 +1,55 @@
+[root@ip-172-31-1-162 ec2-user]# terraform console
+> max (1,31,12)
+31
+> upper ("hello")
+HELLO
+> split ("a","tomcato")
+[
+  "tomc",
+  "to",
+]
+> split ("o","tomcato")
+[
+  "t",
+  "mcat",
+  "",
+]
+> substr ("hello world",1,4)
+ello
+> substr ("hello world",1,5)
+ello
+> substr ("hello world",0,5)
+hello
+> substr ("hello world",0,4)
+hell
+> index (["a","b","c"], "b")
+1
+> index (["a","b","c"], "c")
+2
+> length ("sravan")
+6
+> length (["a","b"])
+2
+> lookup ({a="1",b="2"},"a","noname")
+1
+> lookup ({a="1",b="2"},"b","noname")
+2
+> lookup ({a="1",b="2"},"c","noname")
+noname
+> exit
+[root@ip-172-31-1-162 ec2-user]#
+###################################################################################################
+max (1,31,12)
+upper ("hello")
+split ("a","tomcato")
+substr ("hello world",1,4)
+index (["a","b","c"], "b")
+length ("sravan")
+lookup ({a="1",b="2"},"a","defaulte")
+####################################################################################################
+
+
+
+
+
 
