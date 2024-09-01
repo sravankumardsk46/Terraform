@@ -1,6 +1,7 @@
 cd terraform 
 mkdir provisioner
 cd provisioner
+# this is provisioner create time
 vi main.tf
 # AWS Provider Configuration
 provider "aws" {
@@ -24,7 +25,7 @@ main.tf  private_ips.txt {# this file locally created } terraform.tfstate
 rm  private_ips.txt    # this file after creation no use only createtion time provisionr it not destroy
 terraform deatroy     private_ips.txt file available
 ##################################################################################
-
+# this is provisioner destroy time
 cd provisioner
 vi main.tf
 # AWS Provider Configuration
