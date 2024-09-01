@@ -82,7 +82,7 @@ resource "aws_instance" "example" {
 terraform plan apply
 Error: Error running command 'exit 1': exit status 1. Output:     # create invoc not properl
 terrform plan
--/+  re creation
+-/+  tainted, so must be replaced  re creation
 Plan: 1 to add, 0 to change, 1 to destroy.
 ####################
 cd provisioner
