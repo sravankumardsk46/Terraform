@@ -21,4 +21,37 @@ resource "aws_instance" "example" {
 terraform init,validate,plan,apply
 ls
 main.tf  private_ips.txt {# this file locally created } terraform.tfstate
+rm  private_ips.txt    # this file after creation no use only createtion time provisionr it not destroy
+terraform deatroy     private_ips.txt file available
 ##################################################################################
+
+cd provisioner
+vi main.tf
+# AWS Provider Configuration
+provider "aws" {
+  region = "ap-south-1"
+}
+
+# EC2 Instance Resource
+resource "aws_instance" "example" {
+  instance_type = "t2.micro"
+  ami           = "ami-0522ab6e1ddcc7055"  # Specify your AMI ID
+
+  # Local Exec Provisioner
+  provisioner "local-exec" {
+    command = "echo aws_instance.example.private_ip >> private_ips.txt"
+  }
+  # Local Exec Provisioner invoke while machine destroyed 
+  provisioner "local-exec" {
+    when    = "destroy"
+    command = "rm private_ips.txt"
+  }
+}
+#############################################################################
+terraform validate ,plan ,apply   
+ls
+main.tf  private_ips.txt  terraform.tfstate  terraform.tfstate.backup
+terraform destroy   
+# local file destroy   private_ips.txt 
+###############################################################################
+
