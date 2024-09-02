@@ -7,10 +7,23 @@ aws --version
 
 aws configure
 $ aws configure
-AWS Access Key ID [None]: YOUR_ACCESS_KEY_ID
-AWS Secret Access Key [None]: YOUR_SECRET_ACCESS_KEY
-Default region name [None]: us-west-2
+AWS Access Key ID [None]: YOUR_ACCESS_KEY_ID    NONAME
+AWS Secret Access Key [None]: YOUR_SECRET_ACCESS_KEY    NONAME
+Default region name [None]: AP-SOUTH-1
 Default output format [None]: json
+
+# credentiol find
+ls ~/.aws
+config credentiols
+cd ~/.aws
+cat credentiol
+#### show u credentiols ########
+cd ~/.aws # env | grep -i aws
+##### it show u actuval credentiol### copy past in configur
+aws configure
+assec key give
+secret key give
+
 
 ########################  AWS CLI INSTALL ON AMAZONE LINUX OS ###################
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
