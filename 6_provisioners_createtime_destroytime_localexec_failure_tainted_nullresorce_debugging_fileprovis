@@ -112,6 +112,10 @@ resource "aws_instance" "example" {
 terraform apply -auto-approve
 susses
 Apply complete! Resources: 1 added, 0 changed, 1 destroyed.
+(or)
+terraform destroy   # it not destroy need this file locally private_ips.txt    -- so  --
+touch private_ips.txt    # locally create then only
+terraform destroy    ---  ok  -
 ###################################################################
 ###################   file provisioner    ##########################
 cd provisioner
