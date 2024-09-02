@@ -33,7 +33,8 @@ secret key give
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 sudo yum install unzip -y && unzip awscliv2.zip
 sudo ./aws/install --bin-dir /usr/bin --install-dir /usr/bin/aws_cli --update
-aws --version
+aws --version 
+which aws
 
 aws configure
 $ aws configure
@@ -46,6 +47,7 @@ Default output format [None]: json
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 unzip awscliv2.zip
 sudo ./aws/install
+which aws       ######    /usr/bin/aws     #######
 aws --version
 
 
