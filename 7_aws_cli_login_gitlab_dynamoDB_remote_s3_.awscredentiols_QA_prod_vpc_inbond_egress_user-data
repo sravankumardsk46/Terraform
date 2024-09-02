@@ -16,8 +16,12 @@ Default output format [None]: json
 ls ~/.aws
 config credentiols
 cd ~/.aws
-cat credentiol
-#### show u credentiols ########
+cat credentiol    #### show u credentiols ########
+ACCSSEC
+SECRET
+cat config
+REGION
+JSON
 cd ~/.aws # env | grep -i aws
 ##### it show u actuval credentiol### copy past in configur
 aws configure
