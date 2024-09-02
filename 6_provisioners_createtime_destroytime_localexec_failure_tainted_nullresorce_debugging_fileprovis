@@ -166,7 +166,7 @@ output "instance_public_ip" {
 #################################################################################
 this craete time provisioner
 terraform valiadate plan apply
-go to newly create instance in connect see 
+go to newly create instance in connect see                                                           @@@@@@@   ERROR  @@@@@@@@@@@@@@@  CAN CHECK LATER @@@
 cat /tmp/myapp.con   "output see"
 terrform destroy
 #################################################################################
