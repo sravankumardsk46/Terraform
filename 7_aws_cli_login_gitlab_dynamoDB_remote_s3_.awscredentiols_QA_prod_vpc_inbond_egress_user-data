@@ -27,6 +27,39 @@ cd ~/.aws # env | grep -i aws
 aws configure
 assec key give
 secret key give
+# add multifull credentiol 
+cd ~/.aws
+vi credentiol
+
+[default]
+aws_access_key_id = key
+aws_secret_access_key = key
+
+[QA]
+aws_access_key_id = key
+aws_secret_access_key = key      
+
+[PROD]
+aws_access_key_id = key
+aws_secret_access_key = key   
+wq!
+-------------------------------------------
+provider "aws" {
+   rigion = "ap-south-1"
+   profile = "QA|PROD"      # access/seccret key referered from ~/.aws/credentiol #
+---------------------------------------------------
+provider "aws" {
+   rigion = "ap-south-1"
+   profile = "QA|PROD"      # access/seccret key referered from ~/.aws/credentiol #
+   alias   = "mumbai"
+}
+
+provider "aws" {
+   alias  = "narth-varginia"     ##   alias name for rereferrol  #
+   rigion = "ap-south-1"
+   profile = "QA|PROD" 
+}
+-----------------------------------------------------------------------------------
 
 
 ########################  AWS CLI INSTALL ON AMAZONE LINUX OS ###################
