@@ -170,6 +170,94 @@ go to newly create instance in connect see                                      
 cat /tmp/myapp.con   "output see"
 terrform destroy
 #################################################################################
+###############     REMOTE - EXEC PROVISIONER    ##################################
+cd prvisioner
+vi main.tf
+# AWS Provider Configuration
+provider "aws" {
+  region = "ap-south-1"
+}
+
+# EC2 Instance Resource
+resource "aws_instance" "example" {
+  instance_type = "t2.micro"
+  ami           = "ami-02b49a24cfb95941c"  # Specify your AMI ID
+  key_name      = "docker_host_key"         # Ensure this key pair exists in your AWS account
+
+  # Local Exec Provisioner to create a simple script locally
+  provisioner "local-exec" {
+    command   = "echo 'while true; do echo hi-students; sleep 5; done' > myscript.sh"
+  }
+
+  # File Provisioner to copy the script to the instance
+  provisioner "file" {
+    source      = "myscript.sh"               # Local file to be copied
+    destination = "/tmp/myscript.sh"          # Destination on the EC2 instance
+  }
+
+  # Remote Exec Provisioner to set permissions and run the script in the background
+  provisioner "remote-exec" {
+    inline = [
+      "chmod +x /tmp/myscript.sh",            # Make the script executable
+      "nohup /tmp/myscript.sh &",             # Run the script in the background
+    ]
+  }
+
+  # SSH Connection Configuration
+  connection {
+    type        = "ssh"
+    user        = "ec2-user"
+    private_key = file("docker_host_key.pem")
+    host        = self.public_ip
+  }
+}
+
+# Output the public IP of the instance
+output "instance_public_ip" {
+  value = aws_instance.example.public_ip
+}
+################################################################################
+terraform validate plan apply destroy
+this create time provisiner
+u van check in /tmp file reote have file
+and locally have file can check ones
+#################   RUN ANSIBLE  ###############################################
+# AWS Provider Configuration
+provider "aws" {
+  region = "ap-south-1"
+}
+
+# EC2 Instance Resource
+resource "aws_instance" "example" {
+  ami           = "ami-02b49a24cfb95941c"  # Replace with your desired AMI ID
+  instance_type = "t2.micro"
+  key_name      = "master"                 # Ensure this key pair exists in your AWS account
+
+  # Remote Exec Provisioner to install Ansible and check its version
+  provisioner "remote-exec" {
+    inline = [
+      "sudo apt-get -y update",             # Update package list
+      "sudo apt-get install -y ansible",    # Install Ansible
+      "ansible --version"                   # Check Ansible version
+    ]
+  }
+
+  # SSH Connection Configuration
+  connection {
+    type        = "ssh"
+    user        = "ubuntu"                  # Default user for Ubuntu AMIs
+    private_key = file("docker_host_key.pem")  # Path to the private key file
+    host        = self.public_ip             # Public IP of the instance
+  }
+}
+
+# Output the public IP of the instance
+output "instance_public_ip" {
+  value = aws_instance.example.public_ip
+}
+#####################################################################################################
+
+
 
 
 
