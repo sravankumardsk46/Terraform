@@ -119,6 +119,18 @@ terraform destroy    ---  ok  -
 ###################################################################
 ###################   file provisioner    ##########################
 cd provisioner
+--------------------------------------------
+vi docker_host_key.pem
+    "private key "  "copy past here "
+  :wq!
+chmod 400 docker_host_key.pem
+(locally remove all *tf state file)
+--------------------------------------------
+vi docker_host_key.pem  
+vi test.conf
+  "write somthing"
+ :wq!
+###########################################
 vi main.tf
 # AWS Provider Configuration
 provider "aws" {
@@ -128,21 +140,36 @@ provider "aws" {
 # EC2 Instance Resource
 resource "aws_instance" "example" {
   instance_type = "t2.micro"
-  ami           = "ami-0522ab6e1ddcc7055"  # Specify your AMI ID
+  ami           = "ami-02b49a24cfb95941c"  # Specify your AMI ID
+  key_name      = "docker_host_key"         # Ensure this key pair exists in your AWS account
 
-  # Local Exec Provisioner
-  provisioner "local-exec" {
-    command = "exit 1"
-    on_failure = continue
+  # File Provisioner to copy a file to the instance
+  provisioner "file" {
+    source      = "test.conf"                # Local file to be copied
+    destination = "/tmp/myapp.conf"          # Destination on the EC2 instance
   }
-  # Local Exec Provisioner to remove the file after creation
-  provisioner "local-exec" {
-    when    = "destroy"
-    command = "rm private_ips.txt"
+
+  # SSH Connection Configuration
+  connection {
+    type        = "ssh"
+    user        = "ec2-user"                 # Default user for Amazon Linux 2
+    private_key = file("docker_host_key.pem")  # Path to the private key file
+    host        = self.public_ip             # Public IP of the instance
   }
 }
 
+# Output the public IP of the instance
+output "instance_public_ip" {
+  value = aws_instance.example.public_ip
+}
 
+#################################################################################
+this craete time provisioner
+terraform valiadate plan apply
+go to newly create instance in connect see 
+cat /tmp/myapp.con   "output see"
+terrform destroy
+#################################################################################
 
 
 
