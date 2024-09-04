@@ -175,6 +175,9 @@ go to dynamodb databace in item can check lock
 4.cd realtimeproject
 terraform destroy     # all gone  see check
 #####################################################################  DB LOck END  #########
+######################### time 7 th class 1:15 start vpc in terraform listen ######################
+####################################     VPC     ###############################################
+
 
 
 
