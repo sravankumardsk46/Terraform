@@ -4,14 +4,27 @@ sudo apt install unzip -y && unzip awscliv2.zip
 sudo ./aws/install --bin-dir /usr/bin --install-dir /usr/bin/aws_cli --update
 aws --version
 
-
 aws configure
 $ aws configure
 AWS Access Key ID [None]: YOUR_ACCESS_KEY_ID    NONAME
 AWS Secret Access Key [None]: YOUR_SECRET_ACCESS_KEY    NONAME
 Default region name [None]: AP-SOUTH-1
 Default output format [None]: json
+##################################################################################
+########################  AWS CLI INSTALL ON AMAZONE LINUX OS ###################
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+sudo yum install unzip -y && unzip awscliv2.zip
+sudo ./aws/install --bin-dir /usr/bin --install-dir /usr/bin/aws_cli --update
+aws --version 
+which aws
 
+aws configure
+$ aws configure
+AWS Access Key ID [None]: YOUR_ACCESS_KEY_ID
+AWS Secret Access Key [None]: YOUR_SECRET_ACCESS_KEY
+Default region name [None]: us-west-2
+Default output format [None]: json
+####################################################################################
 # credentiol find
 ls ~/.aws
 config credentiols
@@ -48,40 +61,33 @@ provider "aws" {
    rigion = "ap-south-1"
    profile = "QA|PROD"      # access/seccret key referered from ~/.aws/credentiol #
 ---------------------------------------------------
+# same QA environ ment can use     alias
+# resorce block called   alias
+-----------------------------------------------------
+# AWS Provider Configuration
 provider "aws" {
-   rigion = "ap-south-1"
-   profile = "QA|PROD"      # access/seccret key referered from ~/.aws/credentiol #
-   alias   = "mumbai"
+  region  = "ap-south-1"
+  profile = "QA"  # Access/secret key referred from ~/.aws/credentials
+  alias   = "mumbai"
 }
 
 provider "aws" {
-   alias  = "narth-varginia"     ##   alias name for rereferrol  #
-   rigion = "ap-south-1"
-   profile = "QA|PROD" 
+  alias   = "north-virginia"  # Alias name for referral
+  region  = "us-east-1"
+  profile = "QA"
 }
------------------------------------------------------------------------------------
+
+# EC2 Instance Resource in North Virginia
+resource "aws_instance" "example" {
+  ami           = "ami-02b49a24cfb95941c"  # Specify your AMI ID
+  instance_type = "t2.micro"
+  provider      = aws.north-virginia  # Alias name to pick the provider
+}
 
 
-########################  AWS CLI INSTALL ON AMAZONE LINUX OS ###################
-curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-sudo yum install unzip -y && unzip awscliv2.zip
-sudo ./aws/install --bin-dir /usr/bin --install-dir /usr/bin/aws_cli --update
-aws --version 
-which aws
 
-aws configure
-$ aws configure
-AWS Access Key ID [None]: YOUR_ACCESS_KEY_ID
-AWS Secret Access Key [None]: YOUR_SECRET_ACCESS_KEY
-Default region name [None]: us-west-2
-Default output format [None]: json
-####################################################################################
 
-curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-unzip awscliv2.zip
-sudo ./aws/install
-which aws       ######    /usr/bin/aws     #######
-aws --version
+
 
 
 
