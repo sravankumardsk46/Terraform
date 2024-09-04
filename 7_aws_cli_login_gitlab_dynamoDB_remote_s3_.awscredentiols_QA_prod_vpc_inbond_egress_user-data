@@ -83,7 +83,13 @@ resource "aws_instance" "example" {
   instance_type = "t2.micro"
   provider      = aws.north-virginia  # Alias name to pick the provider
 }
-
+########################################################################
+#  provider      = aws.mubaie ## this si refferal alias u donat give any name it take[ defualt  ]
+   or [  QA   ]   or    [   PROD    ]    
+#################################################################################################
+##########  importent  u are state file in s3 two person work at the time it problem so one person plan lock apply lock 
+this work wen finsh lock is open second person waiting becouse show him it lock wen lock open secound person do work 
+##########################################################################################################################
 
 
 
