@@ -91,6 +91,11 @@ resource "aws_instance" "example" {
 this work wen finsh lock is open second person waiting becouse show him it lock wen lock open secound person do work s3 is databace 
 in s3 have dynamoDB databace is no colem and tables its Json parmet
 ##########################################################################################################################
+################################  DynamoDB locking statefile in terraform   #################################################
+mkdir realtimeproject
+cd realproject 
+vi main.tf
+
 provider "aws" {
   region = "ap-south-1"              # Replace with your desired region
 }
@@ -116,9 +121,11 @@ resource "aws_dynamodb_table" "dynamodb-terraform-state-locks" {
 }
 
 ###########################################################################################################
+terraform init validate paln apply
+############################################################################################################
 mkdir statelock
 cd statelock
-vi main.tf# Specify the AWS provider
+vi main.tf         
 provider "aws" {
   region = "ap-south-1"  
 }
@@ -127,6 +134,8 @@ provider "aws" {
 resource "aws_instance" "example" {
   ami           = "ami-02b49a24cfb95941c" 
   instance_type = "t2.micro"  
+}
+#################
 
 
 vi backend.tf
@@ -139,6 +148,37 @@ terraform {
   }
 }
 ####################################################################
+cd statelock
+terrform init
+terrform plan apply
+terrfotm plan    uptodate show you
+vi main.tf
+vi main.tf         
+provider "aws" {
+  region = "ap-south-1"  
+}
+
+# Define an EC2 instance
+resource "aws_instance" "example" {
+  ami           = "ami-02b49a24cfb95941c" 
+  instance_type = "t2.micro" 
+  count  =  2    #### i adden this
+}
+##################################################################
+now lock create in dynamodb cancheck affter apply
+terrform plan apply
+go to dynamodb databace in item can check lock
+##############################  ##################################
+1.cd stateclock
+2.terraform destroy
+3. go to s3 bucket only[ delete .statefile] manuvally
+4.cd realtimeproject
+terraform destroy     # all gone  see check
+#####################################################################  DB LOck END  #########
+
+
+
+
 
 
 
