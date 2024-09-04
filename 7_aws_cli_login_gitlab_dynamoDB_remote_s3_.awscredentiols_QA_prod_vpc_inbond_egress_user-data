@@ -88,8 +88,60 @@ resource "aws_instance" "example" {
    or [  QA   ]   or    [   PROD    ]    
 #################################################################################################
 ##########  importent  u are state file in s3 two person work at the time it problem so one person plan lock apply lock 
-this work wen finsh lock is open second person waiting becouse show him it lock wen lock open secound person do work 
+this work wen finsh lock is open second person waiting becouse show him it lock wen lock open secound person do work s3 is databace 
+in s3 have dynamoDB databace is no colem and tables its Json parmet
 ##########################################################################################################################
+provider "aws" {
+  region = "ap-south-1"              # Replace with your desired region
+}
+
+resource "aws_s3_bucket" "example" {
+  bucket = "wezvatech-sravan-demo-s3"  # Replace with your desired bucket name
+}
+
+resource "aws_dynamodb_table" "dynamodb-terraform-state-locks" {
+  name         = "terraform-state-lock-dynamo"  # Replace with your desired table name
+  billing_mode = "PROVISIONED"           # Use "PROVISIONED" for fixed read/write capacity
+  hash_key = "LockID"
+  read_capacity  = 20                    # Set read capacity units
+  write_capacity = 20                    # Set write capacity units
+  attribute {
+    name = "LockID"
+    type = "S"
+  }
+
+  tags = {
+    Name = "DynamoDB Terraform state Lock Table"
+  }
+}
+
+###########################################################################################################
+mkdir statelock
+cd statelock
+vi main.tf# Specify the AWS provider
+provider "aws" {
+  region = "ap-south-1"  
+}
+
+# Define an EC2 instance
+resource "aws_instance" "example" {
+  ami           = "ami-02b49a24cfb95941c" 
+  instance_type = "t2.micro"  
+
+
+vi backend.tf
+terraform {
+  backend "s3" {
+    bucket         = "wezvatech-sravan-demo-s3"
+    key            = "default/terraform.tfstate"
+    region         = "ap-south-1"
+    dynamodb_table = "terraform-state-lock-dynamo"
+  }
+}
+####################################################################
+
+
+
 
 
 
