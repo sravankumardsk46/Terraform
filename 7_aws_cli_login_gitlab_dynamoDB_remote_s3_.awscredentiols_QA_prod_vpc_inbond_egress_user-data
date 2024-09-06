@@ -177,6 +177,137 @@ terraform destroy     # all gone  see check
 #####################################################################  DB LOck END  #########
 ######################### time 7 th class 1:15 start vpc in terraform listen ######################
 ####################################     VPC     ###############################################
+vi variable.tf
+
+# CIDR block for the VPC
+variable "vpc_cidr" {
+  description = "CIDR block for the VPC"
+  default     = "10.0.0.0/16"
+}
+
+# CIDR block for the public subnet
+variable "public_subnet_cidr" {
+  description = "CIDR block for the public subnet"
+  default     = "10.0.1.0/24"
+}
+
+# CIDR block for the private subnet
+variable "private_subnet_cidr" {
+  description = "CIDR block for the private subnet"
+  default     = "10.0.2.0/24"
+}
+
+# AMI ID for the EC2 instance
+variable "amiid" {
+  description = "AMI ID for the EC2 instance"
+  default     = "ami-02b49a24cfb95941c"  # Replace with your desired AMI ID
+}
+
+# Instance type for the EC2 instance
+variable "type" {
+  description = "Instance type for the EC2 instance"
+  default     = "t2.micro"  # Replace with your desired instance type
+}
+
+# PEM file (key pair name) for SSH access
+variable "pemfile" {
+  description = "Name of the PEM file for SSH access"
+  default     = "my-key-pair"  # Replace with your actual PEM file (key pair name)
+}
+#######################################################################################
+vi main.tf
+
+# Provider definition
+provider "aws" {
+  region = "ap-south-1"  # Replace with your region
+}
+#-----------------
+# Create a VPC
+#-----------------
+
+resource "aws_vpc" "my_vpc" {
+  cidr_block           = var.vpc_cidr
+  enable_dns_hostnames = true
+  tags = {
+    Name = "DEMO VPC - SRAVAN"
+  }
+}
+#---------------------------------------------------------
+# get the list of availablity zone in the current region
+#---------------------------------------------------------
+data "aws_availablity_zones"  "all" {}
+#----------------------
+# Create public subnet
+#----------------------
+
+resource "aws_subnet" "public-ap-south-1a" {
+  vpc_id            = aws_vpc.my_vpc.id
+  cidr_block        = var.subnet1_cidr
+  availability_zone = data.aws_availablity_zones.all.name[0]  # Replace with your desired AZ
+  tags = {
+    Name = "Public Subnet - sravan"
+  }
+}
+#-----------------------------
+# Create an Internet Gateway
+#-----------------------------
+
+resource "aws_internet_gateway" "my_vpc_igw" {
+  vpc_id = aws_vpc.my_vpc.id
+  tags = {
+    Name = "DEMO IGW SRAVAN"
+  }
+}
+#-----------------------------
+# Create a public route table FROM A VPC
+#------------------------------
+
+resource "aws_route_table" "my_vpc_public" {
+  vpc_id = aws_vpc.my_vpc.id
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id             = aws_internet_gateway.my_vpc.id
+}
+    
+tags = {
+    Name = "DEMO Public RouteTable SRAVAN"
+  }
+}
+#-------------------------------------------------- 
+# Associate public route table with public subnet create ap-south-1a
+#--------------------------------------------------
+resource "aws_route_table_association" "public_association" {
+  subnet_id      = aws_subnet.public_ap_south_1a.id
+  route_table_id = aws_route_table.my_vpc_public.id
+}
+
+
+
+# Create private subnet
+resource "aws_subnet" "private" {
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = var.private_subnet_cidr
+  availability_zone = "ap-south-1b"  # Replace with your desired AZ
+  tags = {
+    Name = "PrivateSubnet"
+  }
+}
+
+
+
+
+# Associate public route table with public subnet
+resource "aws_route_table_association" "public_association" {
+  subnet_id      = aws_subnet.public.id
+  route_table_id = aws_route_table.public.id
+}
+
+ # Create a route to the internet for the public subnet
+resource "aws_route" "internet_access" {
+  route_table_id         = aws_route_table.public.id
+  destination_cidr_block = "0.0.0.0/0"
+  gateway_id             = aws_internet_gateway.main.id
+}
 
 
 
