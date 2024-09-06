@@ -185,13 +185,13 @@ variable "vpc_cidr" {
 }
 
 # CIDR block for the public subnet
-variable "public_subnet_cidr" {
-  default     = "10.0.1.0/24"
+variable "subnet1_cidr" {
+  default     = "10.0.0.0/24"
 }
 
 # CIDR block for the private subnet
-variable "private_subnet_cidr" {
-  default     = "10.0.2.0/24"
+variable "subnet2_cidr" {
+  default     = "10.0.1.0/24"
 }
 
 # AMI ID for the EC2 instance
@@ -260,7 +260,7 @@ resource "aws_route_table" "my_vpc_public" {
   vpc_id = aws_vpc.my_vpc.id
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id             = aws_internet_gateway.my_vpc.id
+    gateway_id  = aws_internet_gateway.my_vpc_igw.id
 }
     
 tags = {
@@ -270,7 +270,7 @@ tags = {
 #-------------------------------------------------- 
 # Associate public route table with public subnet create ap-south-1a
 #--------------------------------------------------
-resource "aws_route_table_association" "my_vpc_ap_south_1a_public_association" {
+resource "aws_route_table_association" "my_vpc_ap_south_1a_public" {
   subnet_id      = aws_subnet.public_ap_south_1a.id
   route_table_id = aws_route_table.my_vpc_public.id
 }
@@ -298,8 +298,8 @@ resource "aws_security_group" "instance" {
   }
  # Inbound rules for web server
  ingress {
-    from_port   = 8080
-    to_port     = 8080
+    from_port   = 80
+    to_port     = 80
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]  # Allow HTTP access from anywhere
   }
@@ -335,7 +335,7 @@ resource "aws_instance" "server" {
 #----------------------
 resource "aws_subnet" "private-ap-south-1b" {
   vpc_id            = aws_vpc.my_vpc.id
-  cidr_block        = var.private_subnet2_cidr
+  cidr_block        = var.subnet2_cidr
   availability_zone = data.aws_availability_zones.all.names[1] 
  tags = {
     Name = "Private Subnet - sravan"
@@ -388,7 +388,7 @@ resource "aws_security_group" "db" {
 #---------------------------
 # Create an EC2 instance in the private subnet
 #---------------------------
-resource "aws_instance" "private_server" {
+resource "aws_instance" "db" {
   ami                         = var.amiid  
   instance_type               = var.type   
   key_name                    = var.pemfile  
