@@ -181,38 +181,32 @@ vi variable.tf
 
 # CIDR block for the VPC
 variable "vpc_cidr" {
-  description = "CIDR block for the VPC"
   default     = "10.0.0.0/16"
 }
 
 # CIDR block for the public subnet
 variable "public_subnet_cidr" {
-  description = "CIDR block for the public subnet"
   default     = "10.0.1.0/24"
 }
 
 # CIDR block for the private subnet
 variable "private_subnet_cidr" {
-  description = "CIDR block for the private subnet"
   default     = "10.0.2.0/24"
 }
 
 # AMI ID for the EC2 instance
 variable "amiid" {
-  description = "AMI ID for the EC2 instance"
-  default     = "ami-02b49a24cfb95941c"  # Replace with your desired AMI ID
+  default     = "ami-0e53db6fd757e38c7" 
 }
 
 # Instance type for the EC2 instance
 variable "type" {
-  description = "Instance type for the EC2 instance"
-  default     = "t2.micro"  # Replace with your desired instance type
+  default     = "t2.micro"  
 }
 
 # PEM file (key pair name) for SSH access
 variable "pemfile" {
-  description = "Name of the PEM file for SSH access"
-  default     = "my-key-pair"  # Replace with your actual PEM file (key pair name)
+  default     = "docker_host_key"  
 }
 #######################################################################################
 vi main.tf
