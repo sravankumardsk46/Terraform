@@ -227,7 +227,7 @@ resource "aws_vpc" "my_vpc" {
   }
 }
 #---------------------------------------------------------
-# get the list of availablity zone in the current region
+# get the list of availability zone in the current region
 #---------------------------------------------------------
 data "aws_availablity_zones"  "all" {}
 #----------------------
@@ -237,7 +237,7 @@ data "aws_availablity_zones"  "all" {}
 resource "aws_subnet" "public-ap-south-1a" {
   vpc_id            = aws_vpc.my_vpc.id
   cidr_block        = var.subnet1_cidr
-  availability_zone = data.aws_availablity_zones.all.name[0]  # Replace with your desired AZ
+  availability_zone = data.aws_availability_zones.all.name[0]  # Replace with your desired AZ
   tags = {
     Name = "Public Subnet - sravan"
   }
