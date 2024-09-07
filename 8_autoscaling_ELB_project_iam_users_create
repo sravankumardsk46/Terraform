@@ -15,7 +15,7 @@ variable "elb_port" {
 vi main.tf
 
 provider "aws" {
-  region = "ap-south-1"  # Specify your AWS region
+  region = "us-east-1"  # Specify your AWS region
 }
 # Declare the data source # get the availability zones in current region
 data "aws_availability_zones" "all" {}
