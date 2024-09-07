@@ -113,6 +113,175 @@ output "elb_dns_name" {
 ######################################################################
 theeraform apply -auto-approve
 #######################################################
+###################### IAM  USER DEV QA   ######################
+vi main.tf
+
+module "iam_dev_user" {
+  source    = "./modules/Iamuser"
+  devuser   = 1
+  user_name  = "devuser"
+ 
+}
+
+module "iam_qa_user" {
+  source    = "./modules/Iamuser"
+  qauser   = 1
+  user_name  = "testuser"
+ 
+}
+#######################################################################
+cd module
+> IAMUSER
+vi main.tf   
+vi variable.tf
+
+vi variable.tf
+variable "devuser" {
+  description = "The name of the IAM user  create devuser"
+  type        = string
+}
+
+variable "qauser" {
+  description = "The name of the IAM user create qauser"
+  type        = bool
+  default = false
+}
+
+variable "user_name" {
+  description = "desire name of the IAM user"
+  type        = string
+  default = "demouser"
+}
+
+variable "tags" {
+  description = "path to the IAM user"
+  type        = string
+  default     = "/"
+}
+
+variable "force_destroy" {
+  description = "allow force destroy"
+  type        = bool
+  default     = "true"
+}
+########################################
+vi main.tf
+
+provider "aws" {
+  region = "us-east-1" # Adjust as needed
+}
+# iam policy creation
+module "IampolicyDev" {
+  source    = "../IampolicyDev"
+}
+
+module "IampolicyQA" {
+  source    =  "../IampolicyQA"
+}
+
+# create iam user
+resource "aws_iam_user"  "demo" {
+  name = var.name
+  path = var.path
+  force_destroy = var.force_destroy
+tage = {
+  "testuser" = var.name
+}
+}
+resource "aws_iam_access_key" "demo"  {
+ user = aws_iam_user.demo.name
+}
+
+resource "aws_iam_user_policy" "demo" {
+  user = aws_iam_user.demo.name
+  policy =var.devuser?module.IampolicyDev.policy:module.IampolicyQA.policy
+}
+
+
+######################################################
+> IAMPOLICYDEV
+main.tf
+output.tf
+vi main.tf
+provider "aws" {
+  region = "us-east-1" # Adjust as needed
+}
+
+data "aws_iam_policy_document" "demo"
+
+
+ Statement = [
+      {
+        Effect   = "Deny"
+        Action   = [
+          "elasticbeanstalk:CreateEnvironment",
+          "elasticbeanstalk:UpdateEnvironment",
+          "elasticbeanstalk:TerminateEnvironment"
+        ]
+        Resource = "*"
+      }
+    ]
+
+"Statement": [
+    {
+      "Effect"= "Allow",
+      "Action"= ["ec2:RunInstances",]
+      "Resource"=[ "arn:aws:ec2:ap-south-1:123456789012:instance/*",
+                   "arn:aws:ec2:ap-south-1:123456789012:subnet/subnet-12345678"
+]
+
+      "Condition": {
+       test = "StringEquals"
+      variable = "ec2 instancetype"
+        valu = [  "t2.micro","t2.small"]
+        }
+      }
+    }
+  resource "aws_iam_policy"  {
+       name = "dev_policy"
+       path = "/"
+       policy = data.aws_iam_policy_document.demo.json
+}
+######################################3
+vi output.tf
+output "policy" {
+ value = aws_iam_policy.dev.policy
+description = "policy expected from aws_iam_policy"
+}
+################################################
+>IAMPOLICYQA
+main.tf
+output.tf
+vi main.tf
+
+provider "aws" {
+  region = "us-east-1" # Adjust as needed
+}
+
+data "aws_iam_policy_document" "demoqa"
+
+ Statement {        # read only action user
+      
+        Effect   = "allow"
+        Action   = [ readonly accsses
+]
+
+  Resource = "*"
+
+# craete iam policy
+
+ resource "aws_iam_policy" "qa" {
+       name = "qa_policy"
+       path = "/"
+       policy = data.aws_iam_policy_document.demoqa.json
+}
+##############################################################
+vi output.tf
+output "policy" {
+ value = aws_iam_policy.dev.policy
+description = "policy expected from aws_iam_policy"
+}
+######################################################
 
 
 
