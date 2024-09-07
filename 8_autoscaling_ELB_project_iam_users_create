@@ -282,6 +282,8 @@ output "policy" {
 description = "policy expected from aws_iam_policy"
 }
 ######################################################
+terraform plan apply destroy
+
 
 
 
