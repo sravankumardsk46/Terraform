@@ -1,1 +1,110 @@
+variable.tf
+# optinal parameeter
+variable "server_port" {
+  description = "The port on which the server http requsest"
+  type        = number
+  default     = 8080  # Optional: default value
+}
+
+variable "elb_port" {
+  description = "The port used by the Elastic Load Balancer (ELB) http request"
+  type        = number
+  default     = 80  # Optional: default value
+}
+############################################################################
+vi main.tf
+
+provider "aws" {
+  region = "ap-south-1"  # Specify your AWS region
+}
+# Declare the data source # get the availability zones in current region
+data "aws_availability_zones" "all" {}
+
+# Define security group for the ELB
+resource "aws_security_group" "elb" {
+  name        = "elb_example_elb"
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = var.elb_port
+    to_port     = var.elb_port
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+resource "aws_security_group" "instance" {
+  name        = "sravan-example-instance"
+ # Inbound rules (ingress)
+  ingress {
+    from_port   = var.server_port
+    to_port     = var.server_port
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]  
+  }
+}
+# Define the ELB
+resource "aws_elb" "example" {
+  name               = "sravan-elb-example"
+  security_groups = [aws_security_group.elb.id]
+  availability_zones = data.aws_availability_zones.all.names
+
+  health_check {
+    target              = "HTTP:${var.server_port}/"
+    interval            = 30
+    timeout             = 3
+    healthy_threshold   = 2
+    unhealthy_threshold = 2
+  }
+
+
+  listener {
+    instance_port     = var.server_port
+    instance_protocol = "HTTP"
+    lb_port           = var.elb_port
+    lb_protocol       = "HTTP"
+  }
+}
+
+resource "aws_launch_configuration" "example" {
+  name          = "sravan-example-launchconfig"
+  image_id      = "ami-0c55b159cbfafe1f0"  # Update with the desired AMI ID
+  instance_type = "t2.micro"
+  security_groups = [aws_security_group.instance.id]
+
+ user_data = <<-EOF
+              #!/bin/bash
+              echo "Hello, World!" > /var/www/html/index.html
+              EOF
+
+ lifecycle {
+    create_before_destroy = true  # Ensure the launch configuration is replaced before being destroyed
+  }
+}
+
+resource "aws_autoscaling_group" "example" {
+  name = "sravan-example-asg"
+  launch_configuration = aws_launch_configuration.example.id
+  availability_zones = data.aws_availability_zones.all.names
+
+  max_size             = 2
+  min_size             = 10
+
+  load_balancers       = [aws_elb.example.name]
+  health_check_type         = "ELB"
+
+  tag {
+    key                 = "Name"
+    value               = "SRAVAN-ASG-PROJECT"
+    propagate_at_launch = true
+  }
+}
+
+
+
+
 
