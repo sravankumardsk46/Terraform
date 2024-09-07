@@ -104,6 +104,14 @@ resource "aws_autoscaling_group" "example" {
   }
 }
 
+##############################################################################
+vi output.tf
+output "elb_dns_name" {
+  description = "The DNS name of the Elastic Load Balancer"
+  value       = aws_elb.example.dns_name
+}
+######################################################################
+
 
 
 
