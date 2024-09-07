@@ -116,10 +116,10 @@ theeraform apply -auto-approve
 ###################### IAM  USER DEV QA   ######################
 vi main.tf
 
-module "iam_dev_user" {
-  source    = "./modules/Iamuser"
-  devuser   = 1
-  user_name  = "devuser"
+#module "iam_dev_user" {
+ # source    = "./modules/Iamuser"
+#  devuser   = 1
+#  user_name  = "devuser"
  
 }
 
@@ -283,6 +283,15 @@ description = "policy expected from aws_iam_policy"
 }
 ######################################################
 terraform plan apply destroy
+#############################################
+### chenge main.tf aq block  open dev in main.tf
+#module "iam_dev_user" {
+ # source    = "./modules/Iamuser"
+#  devuser   = 1
+#  user_name  = "devuser"
+ 
+}
+########################################
 
 
 
